@@ -2,6 +2,20 @@
 
 通过 SSH 操作 NAS 的标准规范 Skill，适用于 Claude Code / Codex / WorkBuddy / CatPaw 等 Agent。
 
+## 用途
+
+本 skill 配合 **Tailscale 组网**使用：mac 与 NAS 加入同一 tailnet 后，**走 Tailscale IP（100.x.x.x）SSH 远程管理 NAS，不依赖局域网 IP、不受 NAT/跨网段限制**。
+
+当前拓扑（参考）：
+
+| 节点 | Tailscale IP | 系统 | 备注 |
+| ---- | ------------ | ---- | ---- |
+| nas  | 100.x.x.x | Linux (UGOS) | 绿联 DH4300 Plus |
+| mac-client | 100.x.x.x | macOS | 日常使用端 |
+| mac-server | 100.x.x.x | macOS | Mac mini |
+
+典型场景：在外网用 mac 通过 `ssh user@100.x.x.x` 直接管理 NAS（装/维护 Docker 容器、改 frpc.toml、重启服务、排障），等价于在局域网内操作。本 skill 把这套操作固化为 Agent 标准。
+
 ## 背景
 
 为 mac 与 NAS 的 Tailscale 组网过程中沉淀出的 SSH 操作规范，固化为 Agent 标准技能，让任何 Agent 动 NAS 时都自动遵守同一份纪律：
